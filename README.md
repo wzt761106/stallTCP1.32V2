@@ -2,7 +2,9 @@
 
 # 这是一个基于 Cloudflare Workers 的 VLESS 节点脚本。
 
-# 集成了 Web 管理后台、订阅转换、优选 IP 自动解析（支持 .netlib 异步解析）以及 Clash/Sing-box 配置生成功能。
+# 集成了 Web 管理后台、订阅转换.
+
+# 优选 IP 自动解析（支持 .netlib 异步解析）以及 Clash/Sing-box 配置生成功能。
 
 # 修复全平台所有兼容性问题 修复ios系统shadowrocket以及quantumult x兼容性问题
 
