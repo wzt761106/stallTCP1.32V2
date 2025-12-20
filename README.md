@@ -70,6 +70,47 @@
 *   **作用**: 自动拦截已知的恶意爬虫和脚本小子，减少垃圾流量。
 ---
 
+## ⚡️ 进阶配置：D1 数据库 (推荐 - 性能更强)
+
+**本版本支持 Cloudflare D1 (SQLite) 数据库，推荐使用以获得最佳体验。**
+
+1.  **创建数据库**：
+    *   在 Cloudflare 左侧菜单选择 **Workers & Pages** -> **D1**。
+    *   点击 **创建数据库**，命名为 `sub_db` (或其他你喜欢的名字)。
+
+2.  **初始化表结构 (必做)**：
+    *   进入刚才创建的数据库，点击 **控制台 (Console)** 标签。
+    *   复制以下 SQL 代码粘贴到控制台并点击 **Execute (执行)**：
+    ```sql
+ 1. 配置表：存储后台保存的设置 (TG Token, CF Key, 优选IP等)
+CREATE TABLE IF NOT EXISTS config (
+    key TEXT PRIMARY KEY,
+    value TEXT
+);
+
+-- 2. 白名单表：存储允许访问后台的 IP (当前代码核心功能)
+CREATE TABLE IF NOT EXISTS whitelist (
+    ip TEXT PRIMARY KEY,
+    created_at INTEGER
+);
+
+-- 3. 日志表：存储访问日志
+CREATE TABLE IF NOT EXISTS logs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    time TEXT,
+    ip TEXT,
+    region TEXT,
+    action TEXT
+);
+
+-- 4. 统计表：记录每日请求量
+CREATE TABLE IF NOT EXISTS stats (
+    date TEXT PRIMARY KEY,
+    count INTEGER DEFAULT 0
+);
+    ```
+
+
 ## 📂 代码版本说明
 
 本项目包含两套代码，请根据您的部署方式选择：
